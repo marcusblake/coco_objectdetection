@@ -1,0 +1,1 @@
+This project uses OpenCV in order to detect objects in video
