@@ -7,7 +7,7 @@ video_capture = cv2.VideoCapture(0)
 while True:
     success, frame = video_capture.read()
     
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(cv2.flip(frame, flipCode=1), cv2.COLOR_BGR2GRAY)
 
     cv2.imshow("frame", gray)
 
