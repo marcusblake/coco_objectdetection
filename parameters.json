@@ -1,0 +1,30 @@
+{
+    "debug": false,
+    "dataset": {
+        "train": "",
+        "validation": "",
+        "test": "",
+        "annotation": ""
+    },
+    "model": {
+        "classes": ["person", "bicycle", "car", "motorcycle"],
+        "input_size": 448,
+        "bounding_boxes": 1,
+        "grid_size": 7
+    },
+    "training_parameters": {
+        "learning_rate": 2,
+        "epochs": 2,
+        "stride_size": 2,
+        "filter_size": 2,
+        "parallel_threads": 2,
+        "loss_function": {
+            "lambda_coord": 5,
+            "lambda_noobj": 0.5
+        },
+        "overfit_prevention": {
+            "dropout_prob": 0.5,
+            "horizontal_flip_prob": 0.5
+        }
+    }
+}
