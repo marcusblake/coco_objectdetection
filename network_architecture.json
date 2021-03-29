@@ -1,0 +1,36 @@
+[
+    [ "conv", {"kernel_size": 7, "output_channel": 64, "stride": 2} ],
+    [ "maxpool", {"kernel_size": 2, "stride": 2} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 192, "stride": 1} ],
+    [ "maxpool", {"kernel_size": 2, "stride": 2} ],
+    [ "conv", {"kernel_size": 1, "output_channel": 128, "stride": 1} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 256, "stride": 1} ],
+    [ "conv", {"kernel_size": 1, "output_channel": 256, "stride": 1} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 512, "stride": 1} ],
+    [ "maxpool", {"kernel_size": 2, "stride": 2} ],
+    [ "repeat", {
+            "count": 4,
+            "layers": [
+              [ "conv", {"kernel_size": 1, "output_channel": 256, "stride": 1} ],
+              [ "conv", {"kernel_size": 3, "output_channel": 512, "stride": 1} ]
+            ]
+      }
+    ],
+    [ "conv", {"kernel_size": 1, "output_channel": 512, "stride": 1} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 1} ],
+    [ "maxpool", {"kernel_size": 2, "stride": 2} ],
+    [ "repeat", {
+            "count": 2,
+            "layers": [
+              [ "conv", {"kernel_size": 1, "output_channel": 512, "stride": 1} ],
+              [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 1} ]
+            ]
+      }
+    ],
+    [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 1} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 2} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 1} ],
+    [ "conv", {"kernel_size": 3, "output_channel": 1024, "stride": 1} ],
+    [ "linear", { "output": 4096 } ],
+    [ "linear", { "output" : 441 } ]
+  ]
