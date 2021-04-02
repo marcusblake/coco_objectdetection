@@ -33,15 +33,16 @@ class YoloLoss(nn.Module):
     pred_bbox_points = object_exists * predictions[..., self.C+1:]
 
     # Width/height losses
-    bbox_points[...,2:] = torch.sqrt(bbox_points[...,2:])
+    sqrts = torch.sqrt(bbox_points[...,2:])
 
     # Use absolute value to prevent from taking square root of negative number and multiply by sign to make sure that gradient is in the correct direction
-    pred_bbox_points[...,2:] = torch.sign(pred_bbox_points[...,2:]) * torch.sqrt(torch.abs(pred_bbox_points[...,2:]) + 1e-6)
-    x1 = bbox_points.flatten(end_dim=-2)
-    x2 = pred_bbox_points.flatten(end_dim=-2)
+    pred_sqrts = torch.sign(pred_bbox_points[...,2:]) * torch.sqrt(torch.abs(pred_bbox_points[...,2:]) + 1e-6)
+
+    x1 = torch.cat([bbox_points[...,:2], sqrts], dim=3)
+    x2 = torch.cat([pred_bbox_points[...,:2], pred_sqrts], dim=3)
     bbox_loss = self.mse(
-        bbox_points.flatten(end_dim=-2), # Dimension is (N * S * S * 4), will be (N * S * S, 4)
-        pred_bbox_points.flatten(end_dim=-2)
+        x1.flatten(end_dim=-2), # Dimension is (N * S * S * 4), will be (N * S * S, 4)
+        x2.flatten(end_dim=-2)
     )
 
     if self.parameters["debug"]:
